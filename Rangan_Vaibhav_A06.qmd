@@ -178,6 +178,7 @@ Consider the matrix `mat_rand` of random numbers below.
 rand_num <- c(sample(10:100, 10), sample(100:999, 10), sample(1000:2000, 10))
 
 mat_rand <- matrix(sample(rand_num, 30), ncol = 5)
+print(mat_rand)
 ```
 
 Use an appropriate apply function to round values with 2 digits to the nearest tens, values with 3 digits to the nearest hundreds, and 4 digits to the nearest thousands.
@@ -187,7 +188,16 @@ ie: 91 rounds to 90; 173 rounds to 200; 1450 rounds to 1000
 Hint: use `MARGIN = 1:2` to apply the function to each value instead of only a row/col.
 
 ```{r}
+# define custom round function with 1 input
+round_dig <- function(x){
+  # convert the integer input into a string, store its character count as an integer 
+  x_dig <- nchar(as.character(x))
+  # round the number to one fewer place than its digit count (round 3 digit number to nearest hundreds, 2 digit to 10s, etc)
+  return(round(x, -(x_dig -1)))
+}
 
+# use apply function to apply round_dig to all elements of mat_rand
+apply(mat_rand, MARGIN = 1:2, round_dig)
 ```
 
 
@@ -211,7 +221,10 @@ max_temps <- read_tsv("state_max_temps.tsv") |>
 Calculate the average temperature for each month across the whole data frame (using the data for all three states together).
 
 ```{r}
-
+# store the columns of max_temps containing temperature data in max_temps2 (get rid of state, year)
+max_temps2 <- max_temps[, 3:14]
+# use apply function to calculate mean of every column (month)
+apply(max_temps2, 2, mean)
 ```
 
 
@@ -226,7 +239,10 @@ Create three new data frames by slicing the data by state.
 No need to print any output here.
 
 ```{r}
-
+# create data frame for each state by slicing max_temps by rows that include the state, each one includes all columns
+max_temps_co <- max_temps[max_temps$state == "CO", ]
+max_temps_oh <- max_temps[max_temps$state == "OH",]
+max_temps_va <- max_temps[max_temps$state == "VA", ]
 ```
 
 
@@ -247,7 +263,16 @@ Example (this is NOT the answer just an example of what goes in the {}):
 Note: This code should still run successfully even if the numbers were to change.
 
 ```{r}
+# store columns of max_temps_co containing temp data (excluding state, year columns) in max_temps_co2
+max_temps_co2 <- max_temps_co[, 3:14]
+# store median of each row of max_temps_co2 (year) in yearly_median 
+yearly_median <- apply(max_temps_co2, 1, median)
 
+# find + store the year with the same index as max/min value of yearly_median
+max_year <- max_temps_co$year[which.max(yearly_median)]
+min_year <- max_temps_co$year[which.min(yearly_median)]
+
+print(paste0("The maximum median annual temperature of ", max(yearly_median)," occured in ", max_year," and the minimum median annual temperature of ", min(yearly_median), " occured in ", min_year))
 ```
 
 
