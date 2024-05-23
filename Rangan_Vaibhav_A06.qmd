@@ -107,6 +107,7 @@ player_info[[2]][[4]]
 
 # return points entry within Bron list within player_info
 player_info$LJ$points
+
 ```
 
 
@@ -117,12 +118,15 @@ Add a new named element to the end of each player's list called `height`. The he
 Print the `player_info` list to prove you were successful.
 
 ```{r}
-# adding an element containing height info named height to each list (player) in the larger list (player_info)
-player_info$MJ$height <- 78
-player_info$LJ$height <- 81
-player_info$KB$height <- 78
-player_info$KA$height <- 86
-player_info$SO$height <- 85
+# store height values in height vector
+height <- c(78,81,78,86,85)
+
+# iterate through length of player_info (1 to 5)
+for(i in 1:length(player_info)){
+  # names(player_info)[i] gives player name
+  # add height element to each player_info$name with height at corresponding index
+  player_info[[names(player_info)[i]]]$height <- height[i]
+}
 
 player_info
 ```
@@ -285,6 +289,8 @@ Example: The number 312 would return 6 (3 + 1 + 2)
 Run your function with 935068.
 
 ```{r}
-
+dig_sum <- function(x){
+  
+}
 ```
 
