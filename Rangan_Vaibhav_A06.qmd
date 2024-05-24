@@ -290,7 +290,14 @@ Run your function with 935068.
 
 ```{r}
 dig_sum <- function(x){
-  
+  # defines base case where x is single digit number(in the vector 0:9), sum of digits is x itself
+  if(is.element(x, 0:9)){
+    return(x)
+  } else {
+  # for each recursive case, add the last digit (given by remainder when dividing by 10) with the function with truncated number (given by integer division by 10) as input
+    return(x%%10 + dig_sum(x%/%10))
+  }
 }
+dig_sum(935068)
 ```
 

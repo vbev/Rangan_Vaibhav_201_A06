@@ -3230,14 +3230,17 @@ Screenshot/image of RStudio
 <p>Add a new named element to the end of each player’s list called <code>height</code>. The heights in inches are as follows: MJ = 78; LJ = 81; KB = 78; KA = 86; SO = 85.</p>
 <p>Print the <code>player_info</code> list to prove you were successful.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># adding an element containing height info named height to each list (player) in the larger list (player_info)</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>player_info<span class="sc">$</span>MJ<span class="sc">$</span>height <span class="ot">&lt;-</span> <span class="dv">78</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>player_info<span class="sc">$</span>LJ<span class="sc">$</span>height <span class="ot">&lt;-</span> <span class="dv">81</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>player_info<span class="sc">$</span>KB<span class="sc">$</span>height <span class="ot">&lt;-</span> <span class="dv">78</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>player_info<span class="sc">$</span>KA<span class="sc">$</span>height <span class="ot">&lt;-</span> <span class="dv">86</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>player_info<span class="sc">$</span>SO<span class="sc">$</span>height <span class="ot">&lt;-</span> <span class="dv">85</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>player_info</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># store height values in height vector</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">78</span>,<span class="dv">81</span>,<span class="dv">78</span>,<span class="dv">86</span>,<span class="dv">85</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># iterate through length of player_info (1 to 5)</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(player_info)){</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># names(player_info)[i] gives player name</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add height element to each player_info$name with height at corresponding index</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  player_info[[<span class="fu">names</span>(player_info)[i]]]<span class="sc">$</span>height <span class="ot">&lt;-</span> height[i]</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>player_info</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$MJ
 $MJ$name
@@ -3405,12 +3408,12 @@ $SO
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mat_rand)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3] [,4] [,5]
-[1,]  508   11 1350  850  100
-[2,]  695  449 1425 1029 1340
-[3,] 1031   37 1857   58  414
-[4,] 1331  301 1641 1514   62
-[5,]  460  648  505   12   90
-[6,]   80  640   14 1500   45</code></pre>
+[1,] 1636   22 1089   62 1308
+[2,] 1747  388 1062  345 1420
+[3,]  499 1491 1937   75  628
+[4,]   92   13  555   65  361
+[5,]   90  229  706 1758   16
+[6,]   21  218 1418   72  939</code></pre>
 </div>
 </div>
 <p>Use an appropriate apply function to round values with 2 digits to the nearest tens, values with 3 digits to the nearest hundreds, and 4 digits to the nearest thousands.</p>
@@ -3429,12 +3432,12 @@ $SO
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(mat_rand, <span class="at">MARGIN =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, round_dig)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3] [,4] [,5]
-[1,]  500   10 1000  800  100
-[2,]  700  400 1000 1000 1000
-[3,] 1000   40 2000   60  400
-[4,] 1000  300 2000 2000   60
-[5,]  500  600  500   10   90
-[6,]   80  600   10 2000   40</code></pre>
+[1,] 2000   20 1000   60 1000
+[2,] 2000  400 1000  300 1000
+[3,]  500 1000 2000   80  600
+[4,]   90   10  600   60  400
+[5,]   90  200  700 2000   20
+[6,]   20  200 1000   70  900</code></pre>
 </div>
 </div>
 </section>
@@ -3514,6 +3517,21 @@ $SO
 <p>Write a recursive function that calculates the sum of the digits in a number.</p>
 <p>Example: The number 312 would return 6 (3 + 1 + 2)</p>
 <p>Run your function with 935068.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>dig_sum <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># defines base case where x is single digit number(in the vector 0:9), sum of digits is x itself</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">is.element</span>(x, <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>)){</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(x)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># for each recursive case, add the last digit (given by remainder when dividing by 10) with the function with truncated number (given by integer division by 10) as input</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(x<span class="sc">%%</span><span class="dv">10</span> <span class="sc">+</span> <span class="fu">dig_sum</span>(x<span class="sc">%/%</span><span class="dv">10</span>))</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="fu">dig_sum</span>(<span class="dv">935068</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 31</code></pre>
+</div>
+</div>
 </section>
 </section>
 
